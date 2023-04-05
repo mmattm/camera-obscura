@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "vite": "^4.2.0"
+  },
+  "dependencies": {
+    "feather-icons": "^4.29.0"
   }
 }
