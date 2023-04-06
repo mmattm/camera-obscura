@@ -29,7 +29,7 @@ export function camera() {
 
   document.body.prepend(video);
 
-  video.addEventListener("click", function () {
+  target.addEventListener("click", function () {
     if (facingMode == "user") {
       facingMode = "environment";
     } else {

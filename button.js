@@ -16,8 +16,6 @@ export function setupButton(button, target, flash) {
 
     await sleep(1000);
 
-    /*
-
     // Replace with your own system prompt
     //const systemPrompt = `
     // You are a hypochondriac person. I send you a description of a situation. Say //something about this in only few words with absurd tone. Output as json`;
@@ -63,9 +61,10 @@ export function setupButton(button, target, flash) {
     console.log(gptOutput);
     answer = JSON.parse(gptOutput.output);
 
-    target.innerHTML = answer;
+    // string from array of characters
+    const emojis = answer.join("");
 
-    */
+    target.innerHTML = emojis;
 
     button.classList.add("bg-white", "outline");
     button.firstElementChild.classList.add("hidden");
