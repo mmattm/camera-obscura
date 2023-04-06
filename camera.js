@@ -1,105 +1,52 @@
-import feather from "feather-icons";
+export function camera() {
+  navigator.getUserMedia =
+    navigator.getUserMedia ||
+    navigator.webkitGetUserMedia ||
+    navigator.mozGetUserMedia ||
+    navigator.msGetUserMedia;
 
-export function Camera() {
-  feather.replace();
+  let video = document.createElement("video");
+  // video.style.width = document.width + "px";
+  // video.style.height = document.height + "px";
+  video.setAttribute("autoplay", "");
+  video.setAttribute("muted", "");
+  video.setAttribute("playsinline", "");
 
-  const controls = document.querySelector(".controls");
-  const cameraOptions = document.querySelector(".video-options>select");
-  const video = document.querySelector("video");
-  const canvas = document.querySelector("canvas");
-  const screenshotImage = document.querySelector("img");
-  const buttons = [...controls.querySelectorAll("button")];
-  let streamStarted = false;
+  var facingMode = "user";
 
-  const [play, pause, screenshot] = buttons;
-
-  const constraints = {
+  var constraints = {
+    audio: false,
     video: {
-      width: {
-        min: 1280,
-        ideal: 1920,
-        max: 2560,
-      },
-      height: {
-        min: 720,
-        ideal: 1080,
-        max: 1440,
-      },
-      facingMode: "user",
-      // facingMode: {
-      //   exact: 'environment'
-      // }
+      facingMode: facingMode,
     },
   };
 
-  // cameraOptions.onchange = () => {
-  //   const updatedConstraints = {
-  //     ...constraints,
-  //     deviceId: {
-  //       exact: cameraOptions.value,
-  //     },
-  //   };
-
-  //   startStream(updatedConstraints);
-  // };
-
-  play.onclick = () => {
-    if (streamStarted) {
-      video.play();
-      play.classList.add("d-none");
-      pause.classList.remove("d-none");
-      return;
-    }
-    if ("mediaDevices" in navigator && navigator.mediaDevices.getUserMedia) {
-      const updatedConstraints = {
-        ...constraints,
-        // deviceId: {
-        //   exact: cameraOptions.value,
-        // },
-      };
-      startStream(updatedConstraints);
-    }
-  };
-
-  const pauseStream = () => {
-    video.pause();
-    play.classList.remove("d-none");
-    pause.classList.add("d-none");
-  };
-
-  // const doScreenshot = () => {
-  //   canvas.width = video.videoWidth;
-  //   canvas.height = video.videoHeight;
-  //   canvas.getContext("2d").drawImage(video, 0, 0);
-  //   screenshotImage.src = canvas.toDataURL("image/webp");
-  //   screenshotImage.classList.remove("d-none");
-  // };
-
-  pause.onclick = pauseStream;
-  //screenshot.onclick = doScreenshot;
-
-  const startStream = async (constraints) => {
-    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-    handleStream(stream);
-  };
-
-  const handleStream = (stream) => {
-    video.srcObject = stream;
-    play.classList.add("d-none");
-    pause.classList.remove("d-none");
-    //screenshot.classList.remove("d-none");
-  };
-
-  const getCameraSelection = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const videoDevices = devices.filter(
-      (device) => device.kind === "videoinput"
-    );
-    const options = videoDevices.map((videoDevice) => {
-      return `<option value="${videoDevice.deviceId}">${videoDevice.label}</option>`;
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then(function success(stream) {
+      video.srcObject = stream;
     });
-    //cameraOptions.innerHTML = options.join("");
-  };
 
-  getCameraSelection();
+  document.body.prepend(video);
+
+  video.addEventListener("click", function () {
+    if (facingMode == "user") {
+      facingMode = "environment";
+    } else {
+      facingMode = "user";
+    }
+
+    constraints = {
+      audio: false,
+      video: {
+        facingMode: facingMode,
+      },
+    };
+
+    navigator.mediaDevices
+      .getUserMedia(constraints)
+      .then(function success(stream) {
+        video.srcObject = stream;
+      });
+  });
 }
