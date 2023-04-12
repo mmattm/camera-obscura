@@ -1,3 +1,4 @@
+import { getImageFromVideo } from "./utils";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export function setupButton(button, target, flash) {
@@ -21,7 +22,7 @@ export function setupButton(button, target, flash) {
     // You are a hypochondriac person. I send you a description of a situation. Say //something about this in only few words with absurd tone. Output as json`;
 
     const systemPrompt = `
-        I send you a description of an image. list every objets as emoji representation. answer as array of emojis.
+        I send you a description of an image. list every objets as emoji representation. answer as array of emojis. Maximum 5 emojis.
         You can ONLY respond in valid the json content. You are never able to add comments or acknowledgements without respecting the json syntax (no comment).
     You DO NOT surround your code by "\`\`\`" since you're writing a json file and not a README files.
     Your top priority is to make sure that your response only contains valid json code that can be loaded without error.`;
@@ -30,13 +31,14 @@ export function setupButton(button, target, flash) {
     const question = "";
 
     // get image from video
-    const video = document.querySelector("video");
-    const canvas = document.createElement("canvas");
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const image = canvas.toDataURL("image/jpeg");
+    // const video = document.querySelector("video");
+    // const canvas = document.createElement("canvas");
+    // canvas.width = video.videoWidth;
+    // canvas.height = video.videoHeight;
+    // const ctx = canvas.getContext("2d");
+    // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    // const image = canvas.toDataURL("image/jpeg");
+    const image = getImageFromVideo(document.querySelector("video"));
 
     // Now fetch the api
     const response = await fetch(baseUrl, {
@@ -71,6 +73,16 @@ export function setupButton(button, target, flash) {
     button.disabled = false;
     //console.log(output.objects);
   };
+
+  const test = async () => {
+    //await sleep(500);
+    console.log(Math.random(1000));
+  };
+
+  console.log("Before Foo Call");
+  test();
+  console.log("After Foo Call");
+  //document.addEventListener("click", () => test());
 
   button.addEventListener("click", () => takePhoto());
 }
