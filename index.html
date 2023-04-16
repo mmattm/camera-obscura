@@ -2,9 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="apple-touch-icon" href="assets/icon.png" />
+    <link rel="apple-touch-icon" href="icon.png" />
 
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -16,10 +17,18 @@
     <title>Camera Obscura</title>
   </head>
   <body>
-    <!-- <div id="app"></div> -->
     <script type="module" src="/main.js"></script>
-    <div id="flash" class="fixed z-100 w-full h-full transition-all"></div>
-
+    <div id="close" class="hidden fixed z-20 top-0 right-0 p-10 cursor-pointer">
+      <svg
+        width="36"
+        height="36"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <use href="feather-sprite.svg#x" />
+      </svg>
+    </div>
     <div
       class="fixed z-20 bottom-0 w-full p-10 flex items-center justify-center transition-all"
     >
@@ -27,7 +36,7 @@
         id="button"
         class="w-16 h-16 bg-white rounded-full grid place-items-center no-border"
       >
-        <svg class="hidden animate-spin transition-all" viewBox="0 0 24 24">
+        <svg class="animate-spin transition-all" viewBox="0 0 24 24">
           <circle
             class="opacity-25"
             cx="12"
@@ -47,7 +56,7 @@
     </div>
     <div
       id="target"
-      class="fixed z-10 flex w-full h-full items-center justify-center text-white text-8xl"
+      class="grid h-screen w-screen place-items-center z-10 fixed text-8xl"
     ></div>
   </body>
 </html>

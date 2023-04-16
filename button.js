@@ -1,28 +1,28 @@
-import { getImageFromVideo } from "./utils";
+import flash from "./flash";
+import { getImageFromVideo, sleep } from "./utils";
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export function setupButton(button, target, flash) {
-  let answer = null;
+export function button() {
+  const video = document.querySelector("video");
+  const button = document.querySelector("#button");
+  const target = document.querySelector("#target");
+  const close = document.querySelector("#close");
 
   const takePhoto = async () => {
     console.log("Taked Photo 📸");
-    button.classList.remove("bg-white", "outline");
-    button.firstElementChild.classList.remove("hidden");
+
+    button.classList.remove("bg-white");
     button.disabled = true;
 
-    // Flash animation
-    flash.classList.add("bg-white");
-    await sleep(100);
-    flash.classList.remove("bg-white");
+    video.pause();
 
-    await sleep(1000);
+    // Flash animation
+    flash();
 
     // Replace with your own system prompt
-    //const systemPrompt = `
-    // You are a hypochondriac person. I send you a description of a situation. Say //something about this in only few words with absurd tone. Output as json`;
-
     const systemPrompt = `
-        I send you a description of an image. list every objets as emoji representation. answer as array of emojis. Maximum 5 emojis.
+        I send you a description of an image. Create a story with emojis about it. answer as array of emojis. Maximum 5 items in the array. Maximum 1 emoji by item.
         You can ONLY respond in valid the json content. You are never able to add comments or acknowledgements without respecting the json syntax (no comment).
     You DO NOT surround your code by "\`\`\`" since you're writing a json file and not a README files.
     Your top priority is to make sure that your response only contains valid json code that can be loaded without error.`;
@@ -30,15 +30,7 @@ export function setupButton(button, target, flash) {
     // Replace with your own question
     const question = "";
 
-    // get image from video
-    // const video = document.querySelector("video");
-    // const canvas = document.createElement("canvas");
-    // canvas.width = video.videoWidth;
-    // canvas.height = video.videoHeight;
-    // const ctx = canvas.getContext("2d");
-    // ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    // const image = canvas.toDataURL("image/jpeg");
-    const image = getImageFromVideo(document.querySelector("video"));
+    const image = getImageFromVideo(video);
 
     // Now fetch the api
     const response = await fetch(baseUrl, {
@@ -54,37 +46,78 @@ export function setupButton(button, target, flash) {
     });
 
     let gptOutput = await response.json();
+    console.log(gptOutput);
 
-    if (response.status !== 201) {
-      console.log("error");
-      return;
+    if (gptOutput.output) {
+      const answer = JSON.parse(gptOutput.output);
+
+      // string from array of characters
+      const emojis = answer ? answer.join("") : "";
+
+      [...emojis].forEach((emoji, index) => {
+        setTimeout(() => {
+          target.innerHTML += emoji;
+        }, index * 250);
+      });
     }
 
-    console.log(gptOutput);
-    answer = JSON.parse(gptOutput.output);
+    /*
+    await sleep(1000);
 
-    // string from array of characters
-    const emojis = answer.join("");
+    const emojis = "🙂🙂🙂";
+    [...emojis].forEach((emoji, index) => {
+      setTimeout(() => {
+        target.innerHTML += emoji;
+      }, index * 250);
+    });
+    */
 
-    target.innerHTML = emojis;
-
-    button.classList.add("bg-white", "outline");
-    button.firstElementChild.classList.add("hidden");
-    button.disabled = false;
-    //console.log(output.objects);
+    button.classList.add("hidden", "bg-white");
+    close.classList.remove("hidden");
   };
 
+  /*
   const test = async () => {
-    //await sleep(500);
-    console.log(Math.random(1000));
+    // try {
+    //   await sleep(1000);
+    //   console.log("test 2");
+    // } catch (error) {
+    //   console.log(error);
+    // }
+    console.log("test");
+    await sleep(2000);
+    console.log("test");
+    // console.log("aa");
+
+    return 1;
+    // console.log(Math.random(1000));
   };
 
   console.log("Before Foo Call");
-  test();
+
+  const testPromise = test();
+
+  console.log(testPromise);
+  testPromise.then(
+    (number) => {
+      console.log("ready");
+      console.log(number);
+      console.log(testPromise);
+    },
+    (error) => console.log(error)
+  );
+
   console.log("After Foo Call");
-  //document.addEventListener("click", () => test());
+
+  */
 
   button.addEventListener("click", () => takePhoto());
-}
 
-const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
+  close.addEventListener("click", () => {
+    target.innerHTML = "";
+    close.classList.add("hidden");
+    button.classList.remove("hidden");
+    button.disabled = false;
+    video.play();
+  });
+}

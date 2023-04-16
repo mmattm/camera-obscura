@@ -29,24 +29,26 @@ export function camera() {
 
   document.body.prepend(video);
 
-  target.addEventListener("click", function () {
-    if (facingMode == "user") {
-      facingMode = "environment";
-    } else {
-      facingMode = "user";
+  video.addEventListener("click", function () {
+    if (!video.paused) {
+      if (facingMode == "user") {
+        facingMode = "environment";
+      } else {
+        facingMode = "user";
+      }
+
+      constraints = {
+        audio: false,
+        video: {
+          facingMode: facingMode,
+        },
+      };
+
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(function success(stream) {
+          video.srcObject = stream;
+        });
     }
-
-    constraints = {
-      audio: false,
-      video: {
-        facingMode: facingMode,
-      },
-    };
-
-    navigator.mediaDevices
-      .getUserMedia(constraints)
-      .then(function success(stream) {
-        video.srcObject = stream;
-      });
   });
 }

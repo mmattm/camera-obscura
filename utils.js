@@ -13,3 +13,5 @@ export const getImageFromVideo = (videoPlayer) => {
   ctx.drawImage(videoPlayer, 0, 0, canvas.width, canvas.height);
   return canvas.toDataURL("image/jpeg");
 };
+
+export const sleep = (ms) => new Promise((res, rej) => setTimeout(res, ms));
