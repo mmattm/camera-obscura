@@ -1,6 +1,6 @@
 import "./style.css";
 import { camera } from "./camera";
-import { button } from "./button";
+import { objectGuesser } from "./objectGuesser";
 import { appHeight } from "./utils";
 
 // Query all objects
@@ -12,7 +12,7 @@ import { appHeight } from "./utils";
 camera();
 
 // Configurer les interactions
-button();
+objectGuesser();
 
 // Fix Ios
 window.addEventListener("resize", appHeight);
