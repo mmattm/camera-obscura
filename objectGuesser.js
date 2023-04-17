@@ -49,9 +49,8 @@ export function objectGuesser() {
     if (objects.length === 2) {
       // Replace with your own system prompt
       const systemPrompt = `
-      You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single emoji. No words description. do not put text that explain the emoji. Only the emoji character.`;
+      You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single character. No words description. do not put other text. Only the emoji character.`;
 
-      console.log(systemPrompt);
       // Now fetch the api
       const response = await fetch(baseUrl, {
         method: "POST",
