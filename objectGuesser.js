@@ -66,7 +66,8 @@ export function objectGuesser() {
 
       let apiResponse = await response.json();
       console.log(apiResponse);
-      target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "";
+      target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
+      objects = [];
     } else {
       target.innerHTML = objects.length + "/2";
     }
