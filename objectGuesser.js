@@ -13,7 +13,7 @@ export function objectGuesser() {
   const close = document.querySelector("#close");
 
   const takePhoto = async () => {
-    console.log("Taked Photo 📸");
+    console.log("Photo 📸");
 
     button.classList.remove("bg-white");
     button.disabled = true;
@@ -48,8 +48,11 @@ export function objectGuesser() {
 
     if (objects.length === 2) {
       // Replace with your own system prompt
+      // const systemPrompt = `
+      // You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single character. No words description. do not put other text. Only the emoji character.`;
+
       const systemPrompt = `
-      You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single character. No words description. do not put other text. Only the emoji character.`;
+      You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer with a single character. No words description. give the answer as an emoji. do not put other text. Only the emoji character.`;
 
       // Now fetch the api
       const response = await fetch(baseUrl, {

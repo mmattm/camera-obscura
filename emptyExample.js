@@ -3,14 +3,14 @@ import { getImageFromVideo, sleep } from "./utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-export function emojiStory() {
+export function emptyExample() {
   const video = document.querySelector("video");
   const button = document.querySelector("#button");
   const target = document.querySelector("#target");
   const close = document.querySelector("#close");
 
   const takePhoto = async () => {
-    console.log("Taked Photo 📸");
+    console.log("Photo 📸");
 
     button.classList.remove("bg-white");
     button.disabled = true;

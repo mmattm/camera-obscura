@@ -10,7 +10,7 @@ export function emojiStory() {
   const close = document.querySelector("#close");
 
   const takePhoto = async () => {
-    console.log("Taked Photo 📸");
+    console.log("Photo 📸");
 
     button.classList.remove("bg-white");
     button.disabled = true;
@@ -61,17 +61,6 @@ export function emojiStory() {
         }, index * 250);
       });
     }
-
-    /*
-    await sleep(1000);
-
-    const emojis = "🙂🙂🙂";
-    [...emojis].forEach((emoji, index) => {
-      setTimeout(() => {
-        target.innerHTML += emoji;
-      }, index * 250);
-    });
-    */
 
     button.classList.add("hidden", "bg-white");
     close.classList.remove("hidden");
