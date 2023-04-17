@@ -70,10 +70,10 @@ export function button() {
         target.innerHTML += emoji;
       }, index * 250);
     });
+    */
 
     button.classList.add("hidden", "bg-white");
     close.classList.remove("hidden");
-    */
   };
 
   /*
