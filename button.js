@@ -32,7 +32,6 @@ export function button() {
 
     const image = getImageFromVideo(video);
 
-    /*
     // Now fetch the api
     const response = await fetch(baseUrl, {
       method: "POST",
@@ -61,8 +60,8 @@ export function button() {
         }, index * 250);
       });
     }
-    */
 
+    /*
     await sleep(1000);
 
     const emojis = "🙂🙂🙂";
@@ -74,6 +73,7 @@ export function button() {
 
     button.classList.add("hidden", "bg-white");
     close.classList.remove("hidden");
+    */
   };
 
   /*
