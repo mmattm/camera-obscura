@@ -69,13 +69,13 @@ export function objectGuesser() {
       target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "";
     } else {
       target.innerHTML = objects.length + "/2";
-
-      button.classList.add("bg-white");
-      close.classList.add("hidden");
-      button.classList.remove("hidden");
-      button.disabled = false;
-      video.play();
     }
+
+    button.classList.add("bg-white");
+    close.classList.add("hidden");
+    button.classList.remove("hidden");
+    button.disabled = false;
+    video.play();
   };
 
   button.addEventListener("click", () => takePhoto());
