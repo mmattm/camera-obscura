@@ -1,5 +1,5 @@
 import flash from "./flash";
-import { getImageFromVideo, sleep } from "./utils";
+import { getImageFromVideo, typeWriter } from "./utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -43,7 +43,6 @@ export function objectGuesser() {
     console.log(apiResponse);
 
     objects.push(apiResponse.prediction.output);
-    console.log(objects);
 
     if (objects.length === 2) {
       // Replace with your own system prompt
@@ -67,9 +66,10 @@ export function objectGuesser() {
 
       let apiResponse = await response.json();
       console.log(apiResponse);
-      // remove quotes of a string
 
-      target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
+      // remove quotes of a string
+      //target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
+      typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
       objects = [];
 
       button.classList.add("hidden", "bg-white");
