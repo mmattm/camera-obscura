@@ -2,8 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "sohne";
+  font-style: normal;
+  src: local("sohne"),
+    url(/assets/styles/fonts/Sohne-Kraftig.woff) format("woff");
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: sohne, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -77,5 +84,5 @@ video {
 }
 
 #target {
-  width: -webkit-max-content;
+  /* width: -webkit-max-content; */
 }

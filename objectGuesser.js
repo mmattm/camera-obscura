@@ -47,11 +47,11 @@ export function objectGuesser() {
 
     if (objects.length === 2) {
       // Replace with your own system prompt
-      // const systemPrompt = `
-      // You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single character. No words description. do not put other text. Only the emoji character.`;
-
       const systemPrompt = `
-      You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer only with the emoji. Nothing else.`;
+      You are an assistant that have to suggest to make something creative with things. I give you a list of items names separated by a comma and you have to suggest what to do with these things. Suggest only one thing, Write a very short explanation. only few words. add emojis at the end`;
+
+      // const systemPrompt = `
+      // You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer only with the emoji. Nothing else.`;
 
       // Now fetch the api
       const response = await fetch(baseUrl, {
@@ -67,6 +67,8 @@ export function objectGuesser() {
 
       let apiResponse = await response.json();
       console.log(apiResponse);
+      // remove quotes of a string
+
       target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
       objects = [];
     } else {
