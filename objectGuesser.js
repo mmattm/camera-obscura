@@ -71,16 +71,26 @@ export function objectGuesser() {
 
       target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
       objects = [];
+
+      button.classList.add("hidden", "bg-white");
+      close.classList.remove("hidden");
     } else {
       target.innerHTML = objects.length + "/2";
+      reloadCamera();
     }
+  };
 
+  function reloadCamera() {
     button.classList.add("bg-white");
     close.classList.add("hidden");
     button.classList.remove("hidden");
     button.disabled = false;
     video.play();
-  };
+  }
 
+  close.addEventListener("click", () => {
+    reloadCamera();
+    target.innerHTML = "";
+  });
   button.addEventListener("click", () => takePhoto());
 }
