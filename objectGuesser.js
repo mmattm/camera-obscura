@@ -25,7 +25,6 @@ export function objectGuesser() {
 
     // Replace with your own question.
     const question = "Tell me the main object of the image. Only 1 word";
-
     const image = getImageFromVideo(video);
 
     // Now fetch the api
@@ -52,7 +51,7 @@ export function objectGuesser() {
       // You are an assistant that have to guess an object. I give you a list of object names separated by a comma and you have to guess the next one. Answer with a single character. No words description. do not put other text. Only the emoji character.`;
 
       const systemPrompt = `
-      You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer with a single character. No words description. give the answer as an emoji. do not put other text. Only the emoji character.`;
+      You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer only with the emoji. Nothing else.`;
 
       // Now fetch the api
       const response = await fetch(baseUrl, {
