@@ -3,8 +3,8 @@ import { getImageFromVideo, typeWriter } from "../utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-let objects = [];
-//let objects = ["apple", "banana"];
+let objects = []; // ["apple", "banana"];
+const number_of_objects = 2;
 
 export function objectSequence() {
   const video = document.querySelector("video");
@@ -25,11 +25,10 @@ export function objectSequence() {
     // Flash animation
     flash();
 
-    // Replace with your own question.
     const question = "Tell me the main object of the image. Only 1 word";
     const image = getImageFromVideo(video);
 
-    // Now fetch the api
+    // On récupère la réponse de l'API
     const response = await fetch(baseUrl, {
       method: "POST",
       headers: {
@@ -44,17 +43,18 @@ export function objectSequence() {
     let apiResponse = await response.json();
     console.log(apiResponse);
 
+    // On ajoute l'objet à la liste
     objects.push(apiResponse.prediction.output);
 
-    if (objects.length === 2) {
-      // Replace with your own system prompt
+    // Si on a assez d'objets, on lance la requête
+    if (objects.length === number_of_objects) {
       const systemPrompt = `
       You are an assistant that have to suggest to make something creative with things. I give you a list of items names separated by a comma and you have to suggest what to do with these things. Suggest only one thing, Write a very short explanation. only few words. add emojis at the end`;
 
       // const systemPrompt = `
       // You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer only with the emoji. Nothing else.`;
 
-      // Now fetch the api
+      // On envoie la liste des objets à l'API GPT
       const response = await fetch(baseUrl, {
         method: "POST",
         headers: {
@@ -69,19 +69,24 @@ export function objectSequence() {
       let apiResponse = await response.json();
       console.log(apiResponse);
 
+      // On masque le bouton
+      button.classList.add("hidden", "bg-white");
+      await typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
       //target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
-      typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
+
+      // On vide la liste
       objects = [];
 
-      button.classList.add("hidden", "bg-white");
+      // On affiche le close
       close.classList.remove("hidden");
     } else {
-      target.innerHTML = objects.length + "/2";
+      // Sinon on relance la caméra
+      target.innerHTML = objects.length + "/" + number_of_objects;
       reloadCamera();
     }
   };
 
-  target.innerHTML = objects.length + "/2";
+  target.innerHTML = objects.length + "/" + number_of_objects;
 
   function reloadCamera() {
     button.classList.add("bg-white");

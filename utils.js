@@ -13,18 +13,23 @@ export const getImageFromVideo = (videoPlayer) => {
 };
 
 export const typeWriter = (txt, speed, target) => {
-  let i = 0;
-  target.innerHTML = "";
+  return new Promise((resolve, reject) => {
+    let i = 0;
+    target.innerHTML = "";
 
-  const loopInText = () => {
-    if (i < txt.length) {
-      target.innerHTML += txt.charAt(i);
-      i++;
-      setTimeout(loopInText, speed);
-    }
-  };
+    const loopInText = () => {
+      if (i < txt.length) {
+        target.innerHTML += txt.charAt(i);
+        i++;
+        setTimeout(loopInText, speed);
+      } else {
+        console.log("done");
+        resolve("done");
+      }
+    };
 
-  loopInText();
+    loopInText();
+  });
 };
 
 export const sleep = (ms) => new Promise((res, rej) => setTimeout(res, ms));

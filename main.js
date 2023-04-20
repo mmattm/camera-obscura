@@ -2,8 +2,8 @@ import "./style.css";
 import { camera } from "./camera";
 import { appHeight } from "./utils";
 
-import { objectSequence } from "/examples/objectSequence";
-import { emojiStory } from "/examples/emojiStory";
+import { objectSequence } from "/projects/objectSequence";
+import { emojiStory } from "/projects/emojiStory";
 
 // Lancer la caméra
 camera();
