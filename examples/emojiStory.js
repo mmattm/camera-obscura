@@ -1,5 +1,5 @@
-import flash from "./flash";
-import { getImageFromVideo, sleep } from "./utils";
+import flash from "../flash";
+import { getImageFromVideo } from "../utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -40,9 +40,9 @@ export function emojiStory() {
       },
       body: JSON.stringify({
         image: image, // Optionnel. Si non fourni, l'API va intéroger GPT avec le prompt texte uniquement
-        visualQuestion: question, // Optionnel. Si non fourni, l'API intéroge GPT à partir de la description automatique de l'image
+        //visualQuestion: question, // Optionnel. Si non fourni, l'API intéroge GPT à partir de la description automatique de l'image
         systemPrompt: systemPrompt, // Optionnel. Si non fourni, l'API génère retourne uniquement l'analyse de l'image
-        // content: "", // Doit être fourni si pas d'image
+        // content: "", // Optionnel. Contenu envoyé à GPT, doit être fourni si pas d'image
       }),
     });
 

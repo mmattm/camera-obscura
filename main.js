@@ -2,13 +2,15 @@ import "./style.css";
 import { camera } from "./camera";
 import { appHeight } from "./utils";
 
-import { objectGuesser } from "./objectGuesser";
+import { objectSequence } from "/examples/objectSequence";
+import { emojiStory } from "/examples/emojiStory";
 
 // Lancer la caméra
 camera();
 
 // Configurer les interactions
-objectGuesser();
+objectSequence();
+//emojiStory();
 
 // Fix Ios
 window.addEventListener("resize", appHeight);

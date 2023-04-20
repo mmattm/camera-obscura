@@ -1,12 +1,12 @@
-import flash from "./flash";
-import { getImageFromVideo, typeWriter } from "./utils";
+import flash from "../flash";
+import { getImageFromVideo, typeWriter } from "../utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 let objects = [];
 //let objects = ["apple", "banana"];
 
-export function objectGuesser() {
+export function objectSequence() {
   const video = document.querySelector("video");
   const button = document.querySelector("#button");
   const target = document.querySelector("#target");
@@ -17,6 +17,8 @@ export function objectGuesser() {
 
     button.classList.remove("bg-white");
     button.disabled = true;
+
+    target.innerHTML = "";
 
     video.pause();
 
@@ -67,7 +69,6 @@ export function objectGuesser() {
       let apiResponse = await response.json();
       console.log(apiResponse);
 
-      // remove quotes of a string
       //target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
       typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
       objects = [];
@@ -79,6 +80,8 @@ export function objectGuesser() {
       reloadCamera();
     }
   };
+
+  target.innerHTML = objects.length + "/2";
 
   function reloadCamera() {
     button.classList.add("bg-white");
@@ -92,5 +95,6 @@ export function objectGuesser() {
     reloadCamera();
     target.innerHTML = "";
   });
+
   button.addEventListener("click", () => takePhoto());
 }

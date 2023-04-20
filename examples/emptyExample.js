@@ -1,5 +1,5 @@
-import flash from "./flash";
-import { getImageFromVideo, sleep } from "./utils";
+import flash from "../flash";
+import { getImageFromVideo, sleep } from "../utils";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
