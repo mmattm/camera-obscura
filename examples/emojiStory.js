@@ -52,10 +52,11 @@ export function emojiStory() {
     if (apiResponse.output) {
       const answer = JSON.parse(apiResponse.output);
 
-      // string from array of characters
-      const emojis = answer ? answer.join("") : "";
+      // On assombrit la vidéo
+      video.style.filter = "brightness(75%)";
 
-      [...emojis].forEach((emoji, index) => {
+      // ON affiche les emojis
+      answer.forEach((emoji, index) => {
         setTimeout(() => {
           target.innerHTML += emoji;
         }, index * 250);
@@ -70,6 +71,7 @@ export function emojiStory() {
 
   close.addEventListener("click", () => {
     target.innerHTML = "";
+    video.style.filter = "brightness(100%)";
     close.classList.add("hidden");
     button.classList.remove("hidden");
     button.disabled = false;

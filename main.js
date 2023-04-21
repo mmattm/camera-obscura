@@ -2,7 +2,7 @@ import "./style.css";
 import { camera } from "./camera";
 import { appHeight } from "./utils";
 
-import { objectSequence } from "/projects/objectSequence";
+import { objectSequence } from "/examples/objectSequence";
 
 // Lancer la caméra
 camera();

@@ -71,6 +71,10 @@ export function objectSequence() {
 
       // On masque le bouton
       button.classList.add("hidden", "bg-white");
+
+      // On assombrit la vidéo
+      video.style.filter = "brightness(75%)";
+
       await typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
       //target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
 
@@ -98,6 +102,7 @@ export function objectSequence() {
 
   close.addEventListener("click", () => {
     reloadCamera();
+    video.style.filter = "brightness(100%)";
     target.innerHTML = "";
   });
 
