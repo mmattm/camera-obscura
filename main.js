@@ -2,12 +2,12 @@ import "./style.css";
 import { camera } from "./camera";
 import { appHeight } from "./utils";
 
-import { objectSequence } from "/examples/objectSequence";
+import { objectSequence } from "./examples/objectSequence";
 
 // Lancer la caméra
 camera();
 
-// Configurer les interactions
+// Projet
 objectSequence();
 
 // Fix Ios

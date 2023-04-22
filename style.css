@@ -66,3 +66,8 @@ video {
   z-index: 9999;
   transition: opacity 0.5s;
 }
+
+.p5Canvas {
+  position: fixed;
+  overflow: hidden;
+}

@@ -1,7 +1,7 @@
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 import flash from "../flash";
 import { getImageFromVideo, typeWriter } from "../utils";
-
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 let objects = []; // ["apple", "banana"];
 const number_of_objects = 2;
@@ -34,9 +34,17 @@ export function objectSequence() {
       headers: {
         "Content-Type": "application/json",
       },
+      /*
+      body arguments:
+      - image: base64 string de l'image
+      - visualQuestion: question posée sur le contenu de l'image
+      - systemPrompt: prompt texte envoyé à GPT (role: system)
+      - content: body envoyé à GPT, doit être fourni si pas d'image (role: user)
+      https://platform.openai.com/docs/guides/chat/introduction
+      */
       body: JSON.stringify({
-        image: image, // Optionnel. Si non fourni, l'API va intéroger GPT avec le prompt texte uniquement
-        visualQuestion: question, // Optionnel. Si non fourni, l'API intéroge GPT à partir de la description automatique de l'image
+        image: image,
+        visualQuestion: question,
       }),
     });
 
@@ -73,15 +81,16 @@ export function objectSequence() {
       button.classList.add("hidden", "bg-white");
 
       // On assombrit la vidéo
-      video.style.filter = "brightness(75%)";
+      video.style.filter = "brightness(70%)";
 
+      // On affiche le résultat
       await typeWriter(apiResponse.output.replace(/['"]+/g, ""), 50, target);
       //target.innerHTML = apiResponse.output.replace(/['"]+/g, "") || "🤷‍♂️";
 
       // On vide la liste
       objects = [];
 
-      // On affiche le close
+      // On affiche le bouton close
       close.classList.remove("hidden");
     } else {
       // Sinon on relance la caméra

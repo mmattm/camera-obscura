@@ -1,7 +1,7 @@
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 import flash from "../flash";
 import { getImageFromVideo } from "../utils";
-
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export function emojiStory() {
   const video = document.querySelector("video");
@@ -38,11 +38,17 @@ export function emojiStory() {
       headers: {
         "Content-Type": "application/json",
       },
+      /*
+      body arguments:
+      - image: base64 string de l'image
+      - visualQuestion: question posée sur le contenu de l'image
+      - systemPrompt: prompt texte envoyé à GPT (role: system)
+      - content: body envoyé à GPT, doit être fourni si pas d'image (role: user)
+      https://platform.openai.com/docs/guides/chat/introduction
+      */
       body: JSON.stringify({
-        image: image, // Optionnel. Si non fourni, l'API va intéroger GPT avec le prompt texte uniquement
-        //visualQuestion: question, // Optionnel. Si non fourni, l'API intéroge GPT à partir de la description automatique de l'image
-        systemPrompt: systemPrompt, // Optionnel. Si non fourni, l'API génère retourne uniquement l'analyse de l'image
-        // content: "", // Optionnel. Contenu envoyé à GPT, doit être fourni si pas d'image
+        image: image,
+        systemPrompt: systemPrompt,
       }),
     });
 
@@ -53,7 +59,7 @@ export function emojiStory() {
       const answer = JSON.parse(apiResponse.output);
 
       // On assombrit la vidéo
-      video.style.filter = "brightness(75%)";
+      video.style.filter = "brightness(70%)";
 
       // ON affiche les emojis
       answer.forEach((emoji, index) => {

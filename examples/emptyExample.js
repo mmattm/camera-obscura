@@ -1,12 +1,11 @@
-import flash from "../flash";
-import { getImageFromVideo, sleep } from "../utils";
-
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+import flash from "../flash";
+import { sleep } from "../utils";
 
 export function emptyExample() {
   const video = document.querySelector("video");
   const button = document.querySelector("#button");
-  const target = document.querySelector("#target");
   const close = document.querySelector("#close");
 
   const takePhoto = async () => {
@@ -30,7 +29,6 @@ export function emptyExample() {
   button.addEventListener("click", () => takePhoto());
 
   close.addEventListener("click", () => {
-    target.innerHTML = "";
     close.classList.add("hidden");
     button.classList.remove("hidden");
     button.disabled = false;
