@@ -1,4 +1,4 @@
-# camera-obscura
+# Camera Obscura
 
 A workshop about Multimodal AI \
 April 2023 - ECAL
