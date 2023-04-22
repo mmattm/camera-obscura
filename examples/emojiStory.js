@@ -41,7 +41,7 @@ export function emojiStory() {
       /*
       body arguments:
       - image: base64 string de l'image
-      - visualQuestion: question posée sur le contenu de l'image
+      - visualQuestion: question posée sur le contenu de l'image. Si vide, description automatique de l'image
       - systemPrompt: prompt texte envoyé à GPT (role: system)
       - content: body envoyé à GPT, doit être fourni si pas d'image (role: user)
       https://platform.openai.com/docs/guides/chat/introduction
