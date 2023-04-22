@@ -14,7 +14,6 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
 
@@ -65,9 +64,4 @@ video {
   opacity: 0;
   z-index: 9999;
   transition: opacity 0.5s;
-}
-
-.p5Canvas {
-  position: fixed;
-  overflow: hidden;
 }

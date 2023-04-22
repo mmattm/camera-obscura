@@ -17,7 +17,7 @@ const sketch = (cnv) => {
 
   cnv.draw = () => {
     emojis.forEach((emoji) => {
-      cnv.textSize(cnv.random(10, 100));
+      cnv.textSize(cnv.random(10, 160));
       cnv.push();
       cnv.translate(cnv.random(0, cnv.width), cnv.random(0, cnv.height));
       cnv.rotate(cnv.random(0, 360));
@@ -47,6 +47,9 @@ export function p5Example() {
     button.disabled = true;
 
     video.pause();
+
+    // Canvas par dessus la vidéo
+    P5.canvas.style.position = "fixed";
 
     // Flash animation
     flash();
@@ -91,6 +94,9 @@ export function p5Example() {
 
     // Réinitialiser le canvas
     P5.setup();
+
+    // Canvas par dessus la vidéo
+    P5.canvas.style.position = "initial";
 
     close.classList.add("hidden");
     button.classList.remove("hidden");
