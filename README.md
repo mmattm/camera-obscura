@@ -1,6 +1,7 @@
 # camera-obscura-vanilla
 
 A workshop about Multimodal AI
+April 2023 - ECAL
 
 ### DIY GPT
 
