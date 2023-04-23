@@ -1,6 +1,6 @@
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-import flash from "../flash";
+import flash from "../components/flash";
 import { getImageFromVideo } from "../utils";
 
 export function emojiStory() {

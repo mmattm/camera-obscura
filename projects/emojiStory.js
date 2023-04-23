@@ -1,45 +1,13 @@
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
 import flash from "../components/flash";
 import { getImageFromVideo } from "../utils";
-import p5 from "p5";
 
-let emojis = [];
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-// P5 sketch
-const sketch = (cnv) => {
-  cnv.setup = () => {
-    cnv.createCanvas(window.innerWidth, window.innerHeight);
-    cnv.noStroke();
-    cnv.textAlign(cnv.CENTER);
-    cnv.clear();
-  };
-
-  cnv.draw = () => {
-    if (cnv.frameCount % 10 === 0)
-      emojis.forEach((emoji) => {
-        cnv.textSize(cnv.random(10, 160));
-        cnv.push();
-        cnv.translate(cnv.random(0, cnv.width), cnv.random(0, cnv.height));
-        cnv.rotate(cnv.random(0, 360));
-        cnv.text(emoji, 0, 0);
-        cnv.pop();
-      });
-  };
-
-  cnv.mousePressed = () => {
-    cnv.clear();
-  };
-
-  cnv.windowResized = () =>
-    cnv.resizeCanvas(window.innerWidth, window.innerHeight);
-};
-
-export function p5Example() {
+export function emojiStory() {
   const video = document.querySelector("video");
   const button = document.querySelector("#button");
+  const target = document.querySelector("#target");
   const close = document.querySelector("#close");
-  const P5 = new p5(sketch);
 
   const takePhoto = async () => {
     console.log("Photo 📸");
@@ -48,9 +16,6 @@ export function p5Example() {
     button.disabled = true;
 
     video.pause();
-
-    // Canvas par dessus la vidéo
-    P5.canvas.style.position = "fixed";
 
     // Flash animation
     flash();
@@ -74,15 +39,28 @@ export function p5Example() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        image: image,
-        systemPrompt: systemPrompt,
+        image: image, // Optionnel. Si non fourni, l'API va intéroger GPT avec le prompt texte uniquement
+        //visualQuestion: question, // Optionnel. Si non fourni, l'API intéroge GPT à partir de la description automatique de l'image
+        systemPrompt: systemPrompt, // Optionnel. Si non fourni, l'API génère retourne uniquement l'analyse de l'image
+        // content: "", // Optionnel. Contenu envoyé à GPT, doit être fourni si pas d'image
       }),
     });
 
     let apiResponse = await response.json();
     console.log(apiResponse);
 
-    if (apiResponse.output) emojis = JSON.parse(apiResponse.output);
+    if (apiResponse.output) {
+      const answer = JSON.parse(apiResponse.output);
+
+      // string from array of characters
+      const emojis = answer ? answer.join("") : "";
+
+      [...emojis].forEach((emoji, index) => {
+        setTimeout(() => {
+          target.innerHTML += emoji;
+        }, index * 250);
+      });
+    }
 
     button.classList.add("hidden", "bg-white");
     close.classList.remove("hidden");
@@ -91,14 +69,7 @@ export function p5Example() {
   button.addEventListener("click", () => takePhoto());
 
   close.addEventListener("click", () => {
-    emojis = [];
-
-    // Réinitialiser le canvas
-    P5.setup();
-
-    // Canvas par dessus la vidéo
-    P5.canvas.style.position = "initial";
-
+    target.innerHTML = "";
     close.classList.add("hidden");
     button.classList.remove("hidden");
     button.disabled = false;

@@ -1,5 +1,5 @@
 import "./style.css";
-import { camera } from "./camera";
+import { camera } from "./components/camera";
 import { appHeight, sleep } from "./utils";
 
 import { objectSequence } from "./examples/objectSequence";
