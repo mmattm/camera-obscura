@@ -16,14 +16,15 @@ const sketch = (cnv) => {
   };
 
   cnv.draw = () => {
-    emojis.forEach((emoji) => {
-      cnv.textSize(cnv.random(10, 160));
-      cnv.push();
-      cnv.translate(cnv.random(0, cnv.width), cnv.random(0, cnv.height));
-      cnv.rotate(cnv.random(0, 360));
-      cnv.text(emoji, 0, 0);
-      cnv.pop();
-    });
+    if (cnv.frameCount % 10 === 0)
+      emojis.forEach((emoji) => {
+        cnv.textSize(cnv.random(10, 160));
+        cnv.push();
+        cnv.translate(cnv.random(0, cnv.width), cnv.random(0, cnv.height));
+        cnv.rotate(cnv.random(0, 360));
+        cnv.text(emoji, 0, 0);
+        cnv.pop();
+      });
   };
 
   cnv.mousePressed = () => {
