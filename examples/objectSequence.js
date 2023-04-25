@@ -63,7 +63,7 @@ export function objectSequence() {
       // You are an assistant that have to combine two items. I give you a list of items separated by a comma and you have to propose an item that combine them. Answer only with the emoji. Nothing else.`;
 
       // On envoie la liste des objets à l'API GPT
-      const response = await fetch(baseUrl, {
+      const response = await fetch(baseUrl + "gpt", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
