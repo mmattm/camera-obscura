@@ -33,7 +33,7 @@ export function emojiStory() {
     const image = getImageFromVideo(video);
 
     // Now fetch the api
-    const response = await fetch(baseUrl, {
+    const response = await fetch(baseUrl + "gpt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

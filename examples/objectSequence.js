@@ -29,7 +29,7 @@ export function objectSequence() {
     const image = getImageFromVideo(video);
 
     // On récupère la réponse de l'API
-    const response = await fetch(baseUrl, {
+    const response = await fetch(baseUrl + "gpt", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +48,7 @@ export function objectSequence() {
       }),
     });
 
-    let apiResponse = await response.json();
+    const apiResponse = await response.json();
     console.log(apiResponse);
 
     // On ajoute l'objet à la liste
