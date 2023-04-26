@@ -40,18 +40,18 @@ export function ocrExample() {
       const canvas = document.querySelector("canvas");
 
       // window width
-      if (apiResponse.ocr) {
+      if (apiResponse.ocr[0]) {
         const mappedVertices = mapVerticesPosition(
           video.videoWidth,
           video.videoHeight,
           window.innerWidth,
           window.innerHeight,
-          apiResponse.ocr.boundingPoly.vertices
+          apiResponse.ocr[0].boundingPoly.vertices
         );
 
         await createDivFromVertices(
           mappedVertices,
-          apiResponse.ocr.description
+          apiResponse.ocr[0].description
         );
       }
 

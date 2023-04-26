@@ -86,13 +86,13 @@ export function p5OcrExample() {
 
       const canvas = document.querySelector("canvas");
 
-      if (apiResponse.ocr) {
+      if (apiResponse.ocr[0]) {
         const mappedVertices = mapVerticesPosition(
           video.videoWidth,
           video.videoHeight,
           canvas.width / 2,
           canvas.height / 2,
-          apiResponse.ocr.boundingPoly.vertices
+          apiResponse.ocr[0].boundingPoly.vertices
         );
 
         vertices2D = mappedVertices;
